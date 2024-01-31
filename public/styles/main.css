@@ -1,0 +1,53 @@
+body {
+   --bs-body-bg: #F8F0E5;
+   color: #0F2C59;
+   --bs-body-color: #0F2C59;
+   --bs-secondary-color: #0F2C59;
+   --bs-link-color: #DAC0A3;
+   --bs-link-hover-color: #EADBC8;
+   font-family: 'Merriweather', serif;
+}
+
+.btn-primary, .btn-danger {
+    --bs-btn-color: #0F2C59;
+    --bs-btn-bg: #DAC0A3;
+    --bs-btn-border-color: #DAC0A3;
+    --bs-btn-hover-color: #0F2C59;
+    --bs-btn-hover-bg: #EADBC8;
+    --bs-btn-hover-border-color: #EADBC8;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: #F8F0E5;
+    --bs-btn-active-bg: #EADBC8;
+    --bs-btn-active-border-color: #EADBC8;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #F8F0E5;
+    --bs-btn-disabled-bg: #EADBC8;
+    --bs-btn-disabled-border-color: #EADBC8;
+}
+
+.delete-book-btn {
+    --bs-btn-padding-x: 0.1rem;
+}
+
+.btn-outline-secondary {
+    --bs-btn-color: #0F2C59;
+    --bs-btn-bg: #F8F0E5;
+    --bs-btn-border-color: #DAC0A3;
+    --bs-btn-hover-color: #0F2C59;
+    --bs-btn-hover-bg: #EADBC8;
+    --bs-btn-hover-border-color: #EADBC8;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: #F8F0E5;
+    --bs-btn-active-bg: #EADBC8;
+    --bs-btn-active-border-color: #EADBC8;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #F8F0E5;
+    --bs-btn-disabled-bg: #EADBC8;
+    --bs-btn-disabled-border-color: #EADBC8;
+}
+
+#bookTitle, #bookCompletionDate, #bookRating, #bookdescription {
+    color: #0F2C59;
+    border-color: #DAC0A3;
+    background-color: #EADBC8;
+}

@@ -1,0 +1,12 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="container">
+        <% if ( locals.errmsg ) { %>
+            <h2 class="text-center"><%= errmsg %></h2>
+        <% } else { %>
+            <h2 class="text-center">Due to technical difficulties, the service is unavailable currently.</h2>
+            <h2 class="text-center">Sorry for the incovenience.</h2>
+        <% } %>
+    </div>
+
+<%- include("partials/footer.ejs") %>

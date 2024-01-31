@@ -1,0 +1,63 @@
+<%- include("partials/header.ejs") %>
+
+<section id="body" class="container book-list">
+        <% if ( locals.booklist ) {%>
+            <% booklist.forEach( (book) => { %>
+                <div class="row book-list-entry mb-4 mt-5 gx-2">
+                    <div class="col-2 my-2">
+                        <div class="container">
+                            <div class="row my-2">
+                                <img src="https://covers.openlibrary.org/b/lccn/<%= book.id %>-S.jpg" alt="cover of <%= book.title %>" class="bookcover">
+                            </div>       
+                            <form class="row delete-book" action="/delete/<%= book.id %>" method="post" hidden="true">
+                                <input type="submit" class="btn btn-danger delete-book-btn" name="deletedISBN" value="Delete">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-10 my-2">
+                        <div class="container">
+                            <h2 class="row"><%= book.title %></h2>
+                            <% let completionDateTrunc = getTruncatedDate( book.completiondate ); %>
+                            <p class="row my-1">Finished reading on: <%= completionDateTrunc %></p>
+                            <p class="row my-1">Rating: <%= book.rating %><% if ( book.rating ) { %>/10<% } %></p>
+                            <form class="read-notes" action="/notes/<%= book.id %>" method="get">
+                                <input type="submit" class="btn btn-link" value="Your notes">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% } ); %>
+        <% } else { %>
+            <p>Your list is empty.</p>
+        <% } %>
+</section>
+
+<section id="buttons">
+    <div class="d-flex gap-2 justify-content-center py-1">
+        <form action="/new" method="get">
+            <input type="submit" class="btn btn-primary d-inline-flex align-items-center" type="button" value="Add new book">
+        </form>
+        <button class="btn btn-danger d-inline-flex align-items-center" type="button" onclick="handlerDelete()" id="delete-book-button" <% if ( !locals.booklist || booklist.length === 0 ) { %><%- 'disabled="true"' %><% } %>>
+          Delete existing book
+        </button>
+      </div>
+</section>
+
+<script>
+    let deleteRevealed = false;
+
+    function handlerDelete() {
+      const deleteBooks = document.getElementsByClassName("delete-book");
+      if( deleteBooks.length > 0 )
+      {
+        deleteRevealed = !deleteRevealed;
+        document.getElementById( "delete-book-button" ).innerHTML = deleteRevealed ? "Cancel" : "Delete existing book";
+        for( let i = 0; i < deleteBooks.length; i++ )
+        {
+            deleteRevealed ? deleteBooks[i].removeAttribute("hidden") : deleteBooks[i].setAttribute("hidden", true);
+        }
+      }
+    }
+</script>
+
+<%- include("partials/footer.ejs") %>

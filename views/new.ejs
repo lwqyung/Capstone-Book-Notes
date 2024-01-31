@@ -1,0 +1,35 @@
+<%- include("partials/header.ejs") %>
+
+<section id="body" class="container edit-book">
+    <% if ( locals.errmsg ) { %>
+        <h2><%= errmsg %></h2>
+    <% } %>
+    <div class="container my-4">
+            <form action="/new" method="post">
+                <div class="row my-4">
+                    <label for="booktitle">Book title:</label>
+                    <input type="text" id="bookTitle" name="bookTitle" required="true" value="<%= locals.bookTitle %>">
+                </div>
+                <div class="row my-4">
+                    <label class="col" for="bookCompletionDate">Date completed:</label>
+                    <input class="col" type="date" id="bookCompletionDate" name="bookCompletionDate" value="<%= locals.bookCompletionDate %>">
+                </div>
+                <div class="row my-4">
+                    <label class="col" for="bookRating">Rating (out of 10):</label>
+                    <input class="col"type="number" id="bookRating" name="bookRating" min="0" max="10" step="0.5" value="<%= locals.bookRating %>">
+                </div>
+                <div class="row my-4">
+                    <label for="bookdescription">Your thoughts on the book:</label>
+                    <textarea id="bookdescription" name="bookdescription"><%= locals.bookdescription %></textarea>
+                </div>
+                <div class="d-flex gap-2 justify-content-center py-1">
+                    <input type="submit" class="btn btn-primary d-inline-flex align-items-center" value="Add new book" >
+                    <input type="submit" class="btn btn-outline-secondary d-inline-flex align-items-center" type="button" id="cancel-edit-book-button" value="Cancel" form="cancelform">
+                </div>
+            </form>
+            <form action="/" method="get" id="cancelform">
+            </form>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs") %>
