@@ -1,0 +1,15 @@
+<% getTruncatedDate = function( dateval ) {
+    let dateStr = "";
+    if ( dateval ) {
+        dateStr = dateval.toDateString();
+        dateStr = dateStr.substring( dateStr.indexOf( " " ) + 1 );
+    }
+
+    return dateStr;
+} %>
+
+<% getDateStr = function( date ) {
+    const fullMonth = (date.getMonth()+1 < 10 ? "0" : "") + (date.getMonth()+1).toString();
+    const fullDate = (date.getDate() < 10 ? "0" : "" )  + date.getDate().toString();
+    return `${date.getFullYear()}-${fullMonth}-${fullDate}`;
+} %>

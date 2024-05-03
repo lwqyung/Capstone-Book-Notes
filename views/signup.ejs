@@ -1,0 +1,63 @@
+<%- include("partials/header.ejs") %>
+
+<section id="body" class="container new-user">
+    <div class="container my-4">
+        <h2>Create a new user account</h2>
+        <p>If you do not already have a user account, please fill out the following form to create one.</p>
+        <%- include("partials/warningmsg.ejs") %>
+        <hr>
+        <form action="/signup" method="post" id="signup-submit">
+            <div class="row my-4">
+                <label for="username">Your user name:</label>
+                <input type="text" id="username" name="username" autocomplete="username" maxlength="80" value="" required="true"/>
+            </div>
+            <div class="row my-4">
+                <label for="email">Your email address*:</label>
+                <input type="email" id="email" name="email" autocomplete="email" value="" placeholder="account@example.com" required="true"/>
+            </div>
+            <div class="row mt-4 mb-1">
+                <label for="new-password">Your password:</label>
+                <input type="password" id="new-password" name="new-password" autocomplete="new-password" value="" required="true">
+            </div>
+            <div class="row mb-4">
+                <button class="col-md-auto btn btn-danger btn-sm text-center" id="toggle-password" type="button" aria-label="Show password as plain text. Warning: this will display your password on the screen.">Show password</button>
+            </div>
+            <div class="row my-4">
+                <span class="col-md-auto"></span>
+            </div>
+            <div class="row my-4">
+                <input type="submit" class="btn btn-primary col-md-auto" value="Create new account" form="signup-submit">
+            </div>
+        </form>
+        <hr>
+        <p>* We will use your email address only to send you a password reset message if you forget your password. We will never share it with anyone else.</p>
+        <hr>
+        <form action="/" method="get" id="return-home">
+            <input type="submit" class="btn btn-outline-secondary col-md-auto" type="button" id="home-button" value="Return to main page">
+        </form>
+    </div>
+</section>
+
+<script>
+    const passwordInput = document.getElementById('new-password');
+    const togglePasswordButton = document.getElementById('toggle-password');
+
+    togglePasswordButton.addEventListener('click', togglePassword);
+
+    function togglePassword() {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            togglePasswordButton.textContent = 'Hide password';
+            togglePasswordButton.setAttribute('aria-label',
+            'Hide password.');
+        } else {
+            passwordInput.type = 'password';
+            togglePasswordButton.textContent = 'Show password';
+            togglePasswordButton.setAttribute('aria-label',
+            'Show password as plain text. ' +
+            'Warning: this will display your password on the screen.');
+        }
+    }
+</script>
+
+<%- include("partials/footer.ejs") %>

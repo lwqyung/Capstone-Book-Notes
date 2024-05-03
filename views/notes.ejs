@@ -1,23 +1,26 @@
 <%- include("partials/header.ejs") %>
+<%- include("partials/utils.ejs") %>
 
 <section id="body" class="container existing-book">
     <% if ( locals.book ) { %>
-    <div class="container my-4">
-        <h2 class="row"><%= book.title %></h2>
-        <p class="row my-1">Finished reading on: <%= getTruncatedDate( book.completiondate ) %></p>
-        <p class="row my-1">Rating: <%= book.rating %><% if ( book.rating ) { %>/10<% } %></p>
-        <div class="row">
-            <p><% if ( book.notes ) { %><%- book.notes.replaceAll( "\n", "<br><br>") %><% } else {%><em>No notes recorded.</em><% } %></p>
+        <img max-width="50%" src="https://covers.openlibrary.org/b/isbn/<%= book.id %>-L.jpg" alt="cover of <%= book.title %>" class="bookcover">
+        <div class="container my-4">
+            <h2 class="row"><%= book.title %></h2>
+            <p class="row my-1">Author: <%= book.author %></p>
+            <p class="row my-1">Finished reading on: <%= getTruncatedDate( book.completiondate ) %></p>
+            <p class="row my-1">Rating: <%= book.rating %><% if ( book.rating ) { %>/10<% } %></p>
+            <div class="row">
+                <p><% if ( book.note ) { %>&quot;<%- book.note.replaceAll( "\n", "<br>") %>&quot;<% } else {%><em>No notes recorded.</em><% } %></p>
+            </div>
+            <div class="row">
+                <form action="/edit/<%= book.id %>" method="get">
+                    <div class="d-flex gap-2 justify-content-center py-1">
+                        <input type="submit" class="btn btn-primary d-inline-flex align-items-center text-wrap" value="Edit this book note" >
+                        <input type="submit" class="btn btn-outline-secondary d-inline-flex align-items-center text-wrap" type="button" id="home-button" value="Return to main page" formaction="/" formmethod="get">
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="row">
-            <form action="/edit/<%= book.id %>" method="get">
-                <div class="d-flex gap-2 justify-content-center py-1">
-                    <input type="submit" class="btn btn-primary d-inline-flex align-items-center" value="Edit this book note" >
-                    <input type="submit" class="btn btn-outline-secondary d-inline-flex align-items-center" type="button" id="home-button" value="Return to main page" formaction="/" formmethod="get">
-                </div>
-            </form>
-        </div>
-    </div>
     <% } %>
 </section>
 

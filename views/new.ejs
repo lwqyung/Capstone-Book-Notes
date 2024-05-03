@@ -1,4 +1,5 @@
 <%- include("partials/header.ejs") %>
+<%- include("partials/utils.ejs") %>
 
 <section id="body" class="container edit-book">
     <% if ( locals.errmsg ) { %>
@@ -7,12 +8,17 @@
     <div class="container my-4">
             <form action="/new" method="post">
                 <div class="row my-4">
-                    <label for="booktitle">Book title:</label>
-                    <input type="text" id="bookTitle" name="bookTitle" required="true" value="<%= locals.bookTitle %>">
+                    <label for="bookTitle">Book title:</label>
+                    <input type="text" id="bookTitle" name="bookTitle" maxlength="80" required="true" value="<%= locals.bookTitle %>">
+                </div>
+                <div class="row my-4">
+                    <label for="bookAuthor">Book author:</label>
+                    <input type="text" id="bookAuthor" name="bookAuthor" maxlength="80" require="true" value="<%= locals.bookAuthor %>">
                 </div>
                 <div class="row my-4">
                     <label class="col" for="bookCompletionDate">Date completed:</label>
-                    <input class="col" type="date" id="bookCompletionDate" name="bookCompletionDate" value="<%= locals.bookCompletionDate %>">
+                    <% let todayDate = getDateStr( new Date() ); %>
+                    <input class="col" type="date" id="bookCompletionDate" name="bookCompletionDate" max="<%= todayDate %>" value="<%= locals.bookCompletionDate %>">
                 </div>
                 <div class="row my-4">
                     <label class="col" for="bookRating">Rating (out of 10):</label>

@@ -1,47 +1,49 @@
 <%- include("partials/header.ejs") %>
 
 <section id="body" class="container book-list">
+        <% if ( locals.username ) { %>
+            <h2><%= username %>'s Book Notes</h2>
+        <% } %>
         <% if ( locals.booklist ) {%>
             <% booklist.forEach( (book) => { %>
-                <div class="row book-list-entry mb-4 mt-5 gx-2">
-                    <div class="col-2 my-2">
-                        <div class="container">
-                            <div class="row my-2">
-                                <img src="https://covers.openlibrary.org/b/lccn/<%= book.id %>-S.jpg" alt="cover of <%= book.title %>" class="bookcover">
-                            </div>       
-                            <form class="row delete-book" action="/delete/<%= book.id %>" method="post" hidden="true">
-                                <input type="submit" class="btn btn-danger delete-book-btn" name="deletedISBN" value="Delete">
-                            </form>
+                <div class="container-fluid">
+                    <div class="row border border-3 book-list-entry mb-4 mt-5 gx-2">
+                        <div class="col my-2 col-lg-3">
+                            <div class="container">
+                                <div class="row my-2">
+                                    <img src="https://covers.openlibrary.org/b/isbn/<%= book.id %>-M.jpg" class="img-fluid" width="128px" alt="cover of <%= book.title %>" class="bookcover">
+                                </div>       
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-10 my-2">
-                        <div class="container">
-                            <h2 class="row"><%= book.title %></h2>
-                            <% let completionDateTrunc = getTruncatedDate( book.completiondate ); %>
-                            <p class="row my-1">Finished reading on: <%= completionDateTrunc %></p>
-                            <p class="row my-1">Rating: <%= book.rating %><% if ( book.rating ) { %>/10<% } %></p>
-                            <form class="read-notes" action="/notes/<%= book.id %>" method="get">
-                                <input type="submit" class="btn btn-link" value="Your notes">
-                            </form>
+                        <div class="col my-2 col-lg-9">
+                                <h2 class="row"><%= book.title %></h2>
+                                <form class="read-notes" action="/notes/<%= book.id %>" method="get">
+                                    <input type="submit" class="btn btn-primary your-notes-button" value="Your notes">
+                                </form>
+                                <form class="delete-book" action="/delete/<%= book.id %>" method="post" hidden="true">
+                                    <input type="submit" class="btn btn-danger delete-book-btn" name="deletedISBN" value="Delete">
+                                </form>
                         </div>
                     </div>
                 </div>
             <% } ); %>
-        <% } else { %>
-            <p>Your list is empty.</p>
         <% } %>
 </section>
 
+<% if ( !locals.hideBooksAddDelete ) { %>
 <section id="buttons">
-    <div class="d-flex gap-2 justify-content-center py-1">
-        <form action="/new" method="get">
-            <input type="submit" class="btn btn-primary d-inline-flex align-items-center" type="button" value="Add new book">
-        </form>
-        <button class="btn btn-danger d-inline-flex align-items-center" type="button" onclick="handlerDelete()" id="delete-book-button" <% if ( !locals.booklist || booklist.length === 0 ) { %><%- 'disabled="true"' %><% } %>>
-          Delete existing book
-        </button>
-      </div>
+    <div class="container">
+        <div class="d-flex gap-2 justify-content-center py-1">
+            <form action="/new" method="get">
+                <input type="submit" class="btn btn-primary d-inline-flex align-items-center text-wrap" type="button" id="add-book-button" value="Add new book">
+            </form>
+            <button class="btn btn-danger d-inline-flex align-items-center text-wrap" type="button" onclick="handlerDelete()" id="delete-book-button" <% if ( !locals.booklist || booklist.length === 0 ) { %><%- 'disabled="true"' %><% } %>>
+            Delete existing book
+            </button>
+        </div>
+    </div>
 </section>
+<% } %>
 
 <script>
     let deleteRevealed = false;
@@ -52,9 +54,16 @@
       {
         deleteRevealed = !deleteRevealed;
         document.getElementById( "delete-book-button" ).innerHTML = deleteRevealed ? "Cancel" : "Delete existing book";
+        deleteRevealed ? document.getElementById( "add-book-button" ).setAttribute("disabled", true) : document.getElementById( "add-book-button" ).removeAttribute("disabled");
         for( let i = 0; i < deleteBooks.length; i++ )
         {
             deleteRevealed ? deleteBooks[i].removeAttribute("hidden") : deleteBooks[i].setAttribute("hidden", true);
+        }
+
+        const yourNotesButtons = document.getElementsByClassName("your-notes-button");
+        for( let i = 0; i < yourNotesButtons.length; i++ )
+        {
+            deleteRevealed ? yourNotesButtons[i].setAttribute("disabled", true) : yourNotesButtons[i].removeAttribute("disabled");
         }
       }
     }

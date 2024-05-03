@@ -1,29 +1,30 @@
 <%- include("partials/header.ejs") %>
+<%- include("partials/utils.ejs") %>
 
 <section id="body" class="container edit-book">
     <div class="container my-4">
         <% if ( locals.book ) { %>
+            <h2 class="row"><%= book.title %></h2>
+            <div class="row my-4">
+                <p>Author: <%= book.author %></p>
+            </div>
             <form action="/edit/<%= book.id %>" method="post">
-                <div class="row my-4">
-                    <label for="booktitle">Book title:</label>
-                    <input type="text" id="bookTitle" name="bookTitle" disabled="true" value="<%= book.title %>">
-                </div>
                 <div class="row my-4">
                     <label class="col" for="bookCompletionDate">Date completed:</label>
                     <% let convertedDate;
                         if ( book.completiondate ) {
-                        const fullMonth = (book.completiondate.getMonth()+1 < 10 ? "0" : "") + (book.completiondate.getMonth()+1).toString();
-                        const fullDate = (book.completiondate.getDate() < 10 ? "0" : "" )  + book.completiondate.getDate().toString();
-                        convertedDate = `${book.completiondate.getFullYear()}-${fullMonth}-${fullDate}`; } %>
-                    <input class="col" type="date" id="bookCompletionDate" name="bookCompletionDate" value="<%= convertedDate %>" >
+                            convertedDate = getDateStr(book.completiondate);
+                        }
+                        let todayDate = getDateStr( new Date() ); %>
+                    <input class="col" type="date" id="bookCompletionDate" name="bookCompletionDate" max="<%= todayDate %>" value="<%= convertedDate %>" >
                 </div>
                 <div class="row my-4">
                     <label class="col" for="bookRating">Rating (out of 10):</label>
-                    <input class="col"type="number" id="bookRating" name="bookRating" min="0" max="10" step="0.5" value="<%= book.rating %>">
+                    <input class="col" type="number" id="bookRating" name="bookRating" min="0" max="10" step="0.5" value="<%= book.rating %>">
                 </div>
                 <div class="row my-4">
                     <label for="bookdescription">Your thoughts on the book:</label>
-                    <textarea id="bookdescription" name="bookdescription" ><%= book.notes %></textarea>
+                    <textarea id="bookdescription" name="bookdescription" ><%= book.note %></textarea>
                 </div>
                 <div class="d-flex gap-2 justify-content-center py-1">
                     <input type="submit" class="btn btn-primary d-inline-flex align-items-center" value="Save changes" >

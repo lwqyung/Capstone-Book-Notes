@@ -6,6 +6,27 @@ body {
    --bs-link-color: #DAC0A3;
    --bs-link-hover-color: #EADBC8;
    font-family: 'Merriweather', serif;
+   background-image: url("../images/scribble-light.png");
+   --bs-border-color: #DAC0A3;
+   --bs-border-opacity: .05;
+}
+
+@media screen and (min-resolution: 150dpi ) {
+    h1 {
+        font-size: 5rem;
+    }
+
+    h2 {
+        font-size: 3.75rem;
+    }
+
+    h3, p, label, input, textarea {
+        font-size: 3rem;
+    }
+
+    .btn-primary, .btn-danger, .btn-outline-secondary {
+        --bs-btn-font-size: 3rem;
+    }
 }
 
 .btn-primary, .btn-danger {
@@ -25,9 +46,9 @@ body {
     --bs-btn-disabled-border-color: #EADBC8;
 }
 
-.delete-book-btn {
+/*.delete-book-btn {
     --bs-btn-padding-x: 0.1rem;
-}
+}*/
 
 .btn-outline-secondary {
     --bs-btn-color: #0F2C59;
@@ -46,8 +67,13 @@ body {
     --bs-btn-disabled-border-color: #EADBC8;
 }
 
-#bookTitle, #bookCompletionDate, #bookRating, #bookdescription {
+#bookTitle, #bookCompletionDate, #bookRating, #bookdescription, #bookAuthor, #username, #email, #new-password, #current-password {
     color: #0F2C59;
     border-color: #DAC0A3;
     background-color: #EADBC8;
+}
+
+.warning-msg {
+    background-color: #EADBC8;
+    border-color: #DAC0A3;
 }

@@ -1,0 +1,56 @@
+<%- include("partials/header.ejs") %>
+
+<section id="body" class="container login">
+    <div class="container my-4">
+        <h2>Login using existing user account</h2>
+        <%- include("partials/warningmsg.ejs") %>
+        <hr>
+        <form action="/login" method="post" id="login-submit">
+            <div class="row my-4">
+                <label for="email">Your email address:</label>
+                <input type="email" id="email" name="username" autocomplete="email" value="" placeholder="account@example.com" required="true"/>
+            </div>
+            <div class="row mt-4 mb-1">
+                <label for="current-password">Your password:</label>
+                <input type="password" id="current-password" name="password" autocomplete="current-password" value="" required="true">
+            </div>
+            <div class="row mb-4">
+                <button class="col-md-auto btn btn-danger btn-sm text-center" id="toggle-password" type="button" aria-label="Show password as plain text. Warning: this will display your password on the screen.">Show password</button>
+            </div>
+            <div class="row my-4">
+                <span class="col-md-auto"></span>
+            </div>
+            <div class="row my-4">
+                <input type="submit" class="btn btn-primary col-md-auto" value="Login" form="login-submit">
+            </div>
+        </form>
+        <hr>
+        <form action="/" method="get" id="return-home">
+            <input type="submit" class="btn btn-outline-secondary col-md-auto" type="button" id="home-button" value="Return to main page">
+        </form>
+    </div>
+</section>
+
+<script>
+    const passwordInput = document.getElementById('current-password');
+    const togglePasswordButton = document.getElementById('toggle-password');
+
+    togglePasswordButton.addEventListener('click', togglePassword);
+
+    function togglePassword() {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            togglePasswordButton.textContent = 'Hide password';
+            togglePasswordButton.setAttribute('aria-label',
+            'Hide password.');
+        } else {
+            passwordInput.type = 'password';
+            togglePasswordButton.textContent = 'Show password';
+            togglePasswordButton.setAttribute('aria-label',
+            'Show password as plain text. ' +
+            'Warning: this will display your password on the screen.');
+        }
+    }
+</script>
+
+<%- include("partials/footer.ejs") %>
